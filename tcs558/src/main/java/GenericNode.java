@@ -1,19 +1,21 @@
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class GenericNode {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException, IOException {
 
 		// Declare and initialize variables
 		int port;
+		Server server = new Server();
+		Client client = new Client();
 		String protocol = null;
 		String hostName = null;
 		String task = null;
 		String key = null;
 		String value = null;
-
-		Server server = new Server();
-		Client client = new Client();
-
+		
+		
 		if (args.length < 2)
 			return;
 

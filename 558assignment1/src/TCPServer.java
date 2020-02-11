@@ -5,9 +5,9 @@ import java.io.*;
 public class TCPServer 
 { 
     //initialize socket and input stream 
-    private Socket          socket   = null; 
-    private ServerSocket    server   = null; 
-    private DataInputStream in       =  null; 
+    private Socket socket = null; 
+    private ServerSocket server = null; 
+    private DataInputStream in = null; 
   
     // constructor with port 
     public TCPServer(int port) 

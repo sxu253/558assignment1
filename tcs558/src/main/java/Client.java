@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.Scanner; 
 
 public class Client {
 
@@ -31,11 +32,33 @@ public class Client {
 
 	}
 
-	// Implement client side socket for TCP
-	public void runUdpProtocolClient(String hostName, int port, String task, String key, String value) {
-
+	// Implements client side socket for UDP
+	public void runUdpProtocolClient(String hostName, int port, String task, String key, String value) throws UnknownHostException, IOException {
+		
+		InetAddress ip = InetAddress.getByName(hostName);
+		
+		try (DatagramSocket ds = new DatagramSocket()) {
+			byte[] buf = null; 
+			String inp = task + " " + key + " " + value;
+			
+			// Converted string input into Byte array
+			buf = inp.getBytes(); 
+			
+			// Created DatagramPacket for sending data
+			DatagramPacket dpSend = new DatagramPacket(buf, buf.length, ip, port); 
+			
+			// Used DatagramSocket to send DatagramPacket which holds the data 
+			ds.send(dpSend); 
+		}
+		catch (UnknownHostException ex) {
+			System.out.println("Server not found: " + ex.getMessage());
+			
+		} catch (IOException ex) {
+			System.out.println("I/O error: " + ex.getMessage());
+		}
 	}
-	
+
+
 	// implement conditions for input tasks
 	private void implementTasks(String task, String key, String value, BufferedReader reader, PrintWriter writer)
 			throws IOException {
@@ -48,6 +71,10 @@ public class Client {
 			if (task.equalsIgnoreCase("store")) {
 				System.out.println(reader.readLine());
 			}
+			if (task.equalsIgnoreCase("exit")) {
+				System.out.println(reader.readLine());
+			}
+			
 		} else {
 			System.out.println("uc/tc <address> <port> put <key> <msg> UDP/TCP CLIENT: Put an object into store\n"
 					+ "uc/tc <address> <port> get <key> UDP/TCP CLIENT: Get an object from store by key\n"
@@ -56,4 +83,6 @@ public class Client {
 					+ "uc/tc <address> <port> exit UDP/TCP CLIENT: Shutdown server ");
 		}
 	}
+	
+	
 }
