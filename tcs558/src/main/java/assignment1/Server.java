@@ -1,8 +1,22 @@
-import java.io.*;
-import java.net.*;
-import java.util.*;
+package assignment1;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.HashMap;
 
-public class Server {
+public class Server implements KeyValueStoreRMI {
 
 	// Variables
 	HashMap<String, String> storeMap = new HashMap<>();
@@ -108,7 +122,11 @@ public class Server {
 				if (taskKeyValue[0] != null) {
 					implementUdpOperations(taskKeyValue, ds);
 				} else {
-					System.out.println("Null task");
+					System.out.println("uc/tc <address> <port> put <key> <msg> UDP/TCP CLIENT: Put an object into store\n"
+							+ "uc/tc <address> <port> get <key> UDP/TCP CLIENT: Get an object from store by key\n"
+							+ "uc/tc <address> <port> del <key> UDP/TCP CLIENT: Delete an object from store by key\n"
+							+ "uc/tc <address> <port> store UDP/TCP CLIENT: Display object store\n"
+							+ "uc/tc <address> <port> exit UDP/TCP CLIENT: Shutdown server ");
 				}
 				receive = new byte[65535]; 
 			} 
@@ -168,6 +186,7 @@ public class Server {
 	} 
 	
 
+
 	// Put key-values in a hash-map
 	private HashMap<String, String> putValuesInStore(String[] taskKeyValue) {
 
@@ -197,6 +216,31 @@ public class Server {
 
 		return storeMap;
 	}
+
+	@Override
+	public String sayHello() throws RemoteException {
+		return "Hello, world!";
+	}
+
+	@Override
+	public void runRmiProtocolServer(int port) throws RemoteException, IOException {
+		try {
+            Server obj = new Server();
+            KeyValueStoreRMI stub = (KeyValueStoreRMI) UnicastRemoteObject.exportObject(obj, 0);
+
+            // Bind the remote object's stub in the registry
+            Registry registry = LocateRegistry.getRegistry();
+            registry.bind("KeyValueStoreRMI", stub);
+
+            System.err.println("Server ready");
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString());
+            e.printStackTrace();
+        }
+		
+	}
+
+
 
 
 

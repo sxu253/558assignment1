@@ -1,6 +1,19 @@
-import java.net.*;
-import java.io.*;
-import java.util.Scanner; 
+package assignment1;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 
 public class Client {
 
@@ -75,6 +88,18 @@ public class Client {
 		} catch (IOException ex) {
 			System.out.println("I/O error: " + ex.getMessage());
 		}
+	}
+	
+	public void runRmiProtocolClient(String hostName, int port, String task, String key, String value) throws UnknownHostException, IOException {
+        try {
+            Registry registry = LocateRegistry.getRegistry(hostName);
+            KeyValueStoreRMI stub = (KeyValueStoreRMI) registry.lookup("KeyValueStoreRMI");
+            String response = stub.sayHello();
+            System.out.println("response: " + response);
+        } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
 	}
 	
 }

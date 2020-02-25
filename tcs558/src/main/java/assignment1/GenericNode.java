@@ -1,3 +1,4 @@
+package assignment1;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -28,8 +29,12 @@ public class GenericNode {
 				server.runTcpProtocolServer(port);
 			} else if (protocol.equals("uc")) {
 				server.runUdpProtocolServer(port);
+			} else if (protocol.equals("rmis")) {
+				server.runRmiProtocolServer(port);
 			}
 		}
+		
+
 
 		// If argument length is greater than 2 then call the function for client
 		else if (args.length > 2) {
@@ -50,6 +55,8 @@ public class GenericNode {
 				client.runTcpProtocolClient(hostName, port, task, key, value);
 			} else if (protocol.equals("uc")) {
 				client.runUdpProtocolClient(hostName, port, task, key, value);
+			} else if (protocol.equals("rmic")) {
+				client.runRmiProtocolClient(hostName, port, task, key, value);
 			}
 		}
 	}
