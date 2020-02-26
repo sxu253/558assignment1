@@ -1,3 +1,7 @@
+/*Asmita Singla
+ *Sonia Xu
+ *558 Applied Distributed Systems - Assignment 1 
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,10 +18,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class Client {
-
-	public static void main(String[] args) {
-
-	}
 
 	// Implement client side socket for TCP
 	public void runTcpProtocolClient(String hostName, int port, String task, String key, String value) {
@@ -87,13 +87,10 @@ public class Client {
 			throws UnknownHostException, IOException {
 
 		try {
-
 			Registry registry = LocateRegistry.getRegistry(hostName);
 			KeyValueStoreRMI stub = (KeyValueStoreRMI) registry.lookup("KeyValueStoreRMI");
 			String[] taskKeyValue = { task, key, value };
-			// String response = stub.sayHello();
 			stub.implementRmiOperations(taskKeyValue);
-			System.out.println("taskKeyValue: " + task + key + value);
 
 		} catch (Exception e) {
 			System.err.println("Client exception: " + e.toString());

@@ -1,3 +1,8 @@
+/*Asmita Singla
+ *Sonia Xu
+ *558 Applied Distributed Systems - Assignment 1 
+ */
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

@@ -1,3 +1,8 @@
+/*Asmita Singla
+ *Sonia Xu
+ *558 Applied Distributed Systems - Assignment 1 
+ *This program takes in CLI arguments, and establishes TCP, UDP, or RMI connections.
+ */
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -14,7 +19,8 @@ public class GenericNode {
 		String task = null;
 		String key = null;
 		String value = null;
-
+		
+		// Determines which server type is to be run 
 		if (args.length == 1) {
 			protocol = args[0];
 			if (protocol.equals("rmis")) {
@@ -30,7 +36,7 @@ public class GenericNode {
 				server.runUdpProtocolServer(port);
 			}
 		}
-
+		// Determines which client type is to be run
 		else if (args.length > 1) {
 			protocol = args[0];
 			hostName = args[1];
