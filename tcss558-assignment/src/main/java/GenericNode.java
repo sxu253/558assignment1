@@ -1,3 +1,4 @@
+
 /*Asmita Singla
  *Sonia Xu
  *558 Applied Distributed Systems - Assignment 1 
@@ -19,8 +20,8 @@ public class GenericNode {
 		String task = null;
 		String key = null;
 		String value = null;
-		
-		// Determines which server type is to be run 
+
+		// Determines which server type is to be run
 		if (args.length == 1) {
 			protocol = args[0];
 			if (protocol.equals("rmis")) {

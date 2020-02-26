@@ -22,13 +22,7 @@ public class Client {
 			if (task != null) {
 				writer.println(task + " " + key + " " + value);
 
-				if (task.equalsIgnoreCase("get")) {
-					System.out.println(reader.readLine());
-				}
-				if (task.equalsIgnoreCase("store")) {
-					System.out.println(reader.readLine());
-				}
-				if (task.equalsIgnoreCase("exit")) {
+				if (task.equalsIgnoreCase("get") || task.equalsIgnoreCase("store") || task.equalsIgnoreCase("exit")) {
 					System.out.println(reader.readLine());
 				}
 				
@@ -41,11 +35,9 @@ public class Client {
 			}
 
 		} catch (UnknownHostException ex) {
-
 			System.out.println("Server not found: " + ex.getMessage());
 
 		} catch (IOException ex) {
-
 			System.out.println("I/O error: " + ex.getMessage());
 		}
 

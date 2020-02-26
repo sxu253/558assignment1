@@ -105,7 +105,7 @@ public class Server implements KeyValueStoreRMI {
 		}
 		// Close the socket
 		else if (taskKeyValue[0].equalsIgnoreCase("exit")) {
-            System.exit(0);
+			System.exit(0);
 			System.out.println("exit");
 		}
 

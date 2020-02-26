@@ -15,18 +15,15 @@ public class GenericNode {
 		String task = null;
 		String key = null;
 		String value = null;
-		
-		
-//		if (args.length < 2)
-//			return;
 
-		// If argument length is equal to 2 then call the function for server
-		
 		if (args.length == 1) {
 			protocol = args[0];
+
 			if (protocol.equals("rmis")) {
 				server.runRmiProtocolServer();
+
 			}
+
 		} else if (args.length == 2) {
 			protocol = args[0];
 			port = Integer.parseInt(args[1]);
@@ -35,28 +32,27 @@ public class GenericNode {
 				server.runTcpProtocolServer(port);
 			} else if (protocol.equals("us")) {
 				server.runUdpProtocolServer(port);
-			} 
+			}
 		}
 
-
-		// If argument length is greater than 2 then call the function for client
 		else if (args.length > 1) {
 			protocol = args[0];
 			hostName = args[1];
 			if (protocol.equals("rmic")) {
-				//rmic localhost store  = 3
+				// rmic localhost store = 3
 				if (args.length > 2) {
 					task = args[2];
 				}
-				//rmic localhost get a   = 4
+				// rmic localhost get a = 4
 				if (args.length > 3) {
 					key = args[3];
 				}
-				//rmic localhost put a 123  = 5
+				// rmic localhost put a 123 = 5
 				if (args.length > 4) {
 					value = args[4];
 				}
 				client.runRmiProtocolClient(hostName, task, key, value);
+
 			} else {
 				hostName = args[1];
 				port = Integer.parseInt(args[2]);
